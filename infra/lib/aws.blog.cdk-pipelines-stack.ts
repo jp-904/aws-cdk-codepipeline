@@ -1,7 +1,7 @@
 import * as cdk from '@aws-cdk/core';
 import {Repository} from '@aws-cdk/aws-codecommit';
 import { Artifact } from '@aws-cdk/aws-codepipeline';
-import { CdkPipeline, SimpleSynthAction } '@aws-cdk/pipelines';
+import { CdkPipeline, SimpleSynthAction } from '@aws-cdk/pipelines';
 import {CodeCommitSourceAction} from '@aws-cdk/aws-codepipeline-actions';
 import { Construct, Stack, StackProps } from '@aws-cdk/core';
 
@@ -34,7 +34,7 @@ export class AwsBlogCdkPipelinesStack extends Stack {
         cloudAssemblyArtifact,
 
         //typescript compiler
-        buildCommand: 'npm run build && npm run test',
+        buildCommand: 'cd infra && npm run build && npm run test',
       }),
     });
   }
