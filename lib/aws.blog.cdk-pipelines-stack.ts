@@ -47,7 +47,7 @@ export class AwsBlogCdkPipelinesStack extends Stack {
     testEnvStage.addActions(
       //add automated verification step
       new ShellScriptAction({
-        actionName: 'Smoke Test',
+        actionName: 'SmokeTest',
         useOutputs: {
           ENDPOINT_URL: pipeline.stackOutput(testEnv.urlOutput),
         },
