@@ -3,5 +3,5 @@ import * as cdk from '@aws-cdk/core';
 import * as AwsBlogCdkPipelines from '../lib/aws.blog.cdk-pipelines-stack';
 
 test('Never failed', () => {
-  
+
 });
