@@ -34,7 +34,7 @@ export class AwsBlogCdkPipelinesStack extends Stack {
         cloudAssemblyArtifact,
 
         //typescript compiler
-        buildCommand: 'cd infra && npm run build && npm run test',
+        buildCommand: 'npm run build && npm run test',
       }),
     });
   }
