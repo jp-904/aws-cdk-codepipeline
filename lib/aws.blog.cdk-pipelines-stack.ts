@@ -1,7 +1,7 @@
 import * as cdk from '@aws-cdk/core';
 import {Repository} from '@aws-cdk/aws-codecommit';
 import { Artifact } from '@aws-cdk/aws-codepipeline';
-import { CdkPipeline, SimpleSynthAction } from '@aws-cdk/pipelines';
+import { CdkPipeline, ShellScriptAction, SimpleSynthAction } from '@aws-cdk/pipelines';
 import {CodeCommitSourceAction} from '@aws-cdk/aws-codepipeline-actions';
 import { CfnOutput, Construct, Stack, StackProps, Stage, StageProps } from '@aws-cdk/core';
 import { AwsBlogLambdaStack } from './aws.blog.lambda-stack';
@@ -44,6 +44,17 @@ export class AwsBlogCdkPipelinesStack extends Stack {
     let testEnv = new AwsBlogApplicationStage(this,'Test-Env');
     const testEnvStage = pipeline.addApplicationStage(testEnv);
 
+    testEnvStage.addActions(
+      //add automated verification step
+      new ShellScriptAction({
+        actionName: 'Smoke Test',
+        useOutputs: {
+          ENDPOINT_URL: pipeline.stackOutput(testEnv.urlOutput),
+        },
+        commands: ['curl -Ssf $ENDPOINT_URL'],
+        runOrder: testEnvStage.nextSequentialRunOrder(),
+      }),
+    );
   }
 }
 
